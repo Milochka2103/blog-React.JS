@@ -1,0 +1,68 @@
+.addPostForm {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+
+  background-color: white;
+  width: 400px;
+  padding: 20px;
+
+  text-align: center;
+  border-radius: 10px;
+  color: #2f261d;
+
+}
+
+.hideBtn {
+  position: absolute;
+  top: 4px;
+  right: 0;
+}
+
+.addPostForm div + div {
+  margin-top: 10px;
+}
+
+.addPostForm h2 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.addFormInput {
+  width: 100%;
+  padding: 4px 5px;
+  border-radius: 8px;
+  border: 1px solid rgb(172, 170, 170);
+}
+
+.addFormInput:focus::placeholder {
+  color: transparent;
+}
+
+.brownBtn {
+  padding: 5px 15px;
+  border-radius: 16px;
+  background-color: #795738;
+  color: white;
+  transition: .2s;
+}
+
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+
+  background-color: rgba(1, 1, 1, 0.5);
+}
+
+.addPostForm svg {
+  width: 25px;
+  fill: #483a2d;
+}

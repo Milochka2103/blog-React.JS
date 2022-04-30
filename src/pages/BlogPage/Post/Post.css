@@ -1,0 +1,29 @@
+.post {
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin-bottom: 15px;
+}
+
+.post h2 {
+  margin-bottom: 0;
+}
+
+.post img {
+  width: 220px;
+  height: 220px;
+  border-radius: 5px;
+}
+
+.post p {
+  text-align: left;
+  width: 95%;
+}
+
+.post a {
+  text-decoration: underline;
+  color: crimson;
+  font-weight: 600;
+}

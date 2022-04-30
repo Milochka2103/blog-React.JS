@@ -1,0 +1,26 @@
+.sidebar .user {
+  height: 150px;
+  overflow: hidden;
+  width: 100%;
+  padding: 10px 0;
+  color: white;
+
+  background-color: #c19b79;
+  background-size: cover;
+}
+
+.sidebar .avatar {
+  height: 100px;
+}
+.sidebar h3 {
+  margin: 0;
+  margin-top: 10px;
+}
+
+.sidebar .user img {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 50%;
+  width: 100px;
+  margin: 0 auto;
+}

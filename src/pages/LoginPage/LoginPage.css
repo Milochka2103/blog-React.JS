@@ -1,0 +1,26 @@
+.LoginForm {
+  width: 400px;
+  margin: 0 auto;
+  color: #32383d;
+  font-weight: bold;
+}
+
+.LoginForm div {
+  margin-bottom: 10px;
+}
+
+.LoginForm input, .LoginForm button {
+  border-radius: 8px;
+  width: 80%;
+  padding: 3px 5px;
+  font-size: 22px;
+}
+
+.LoginForm input {
+  border: 1px solid #ccc;
+}
+
+.LoginForm button {
+  background-color: #997a5d;
+  color: white;
+}

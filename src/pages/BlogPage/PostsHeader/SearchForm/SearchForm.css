@@ -1,0 +1,18 @@
+.searchForm {
+  width: 250px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #2f261d;;
+  justify-content: space-between;
+  padding: 2px 5px;
+  color: #2f261d;
+}
+
+.searchForm svg {
+  width: 18px;
+}
+
+.searchForm input {
+  font-size: 18px;
+  width: 80%;
+}
