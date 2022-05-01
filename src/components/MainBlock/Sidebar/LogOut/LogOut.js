@@ -2,14 +2,17 @@ import React from "react";
 import LogoutIcon from '@mui/icons-material/Logout';
 import './LogOut.css';
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-export const LogOut = ({setIsLoggedIn}) => {
+export const LogOut = () => {
 
   const history = useHistory();
 
+  const dispatch = useDispatch();
+
+
   const logOut = () => {
-    localStorage.removeItem('isLoggedIn');
-    setIsLoggedIn(false);
+    dispatch(logOut());
     history.push('/login');
   };
 

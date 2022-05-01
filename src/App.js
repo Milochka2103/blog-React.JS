@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Switch } from "react-router-dom";
 import "./App.css";
 import { MainBlock } from "./components/MainBlock/MainBlock";
@@ -9,16 +8,11 @@ import { POSTS_URL } from "./Utils/constants";
 import { useFetchPosts} from "./Utils/hooks";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === "true"
-  );
-
   const postsData = useFetchPosts(POSTS_URL);
 
   const blogPostRoutes = postsData.blogPosts.map((post) => {
     return `/blog/${post.id}`;
   });
-  console.log(blogPostRoutes);
 
   return (
     <div className="App">
@@ -26,18 +20,16 @@ function App() {
         <PublicRoute
           exact
           path="/login"
-          isLoggedIn={isLoggedIn}
           blogPostRoutes={blogPostRoutes}
         >
-          <LoginPage setIsLoggedIn={setIsLoggedIn} />;
+          <LoginPage />;
         </PublicRoute>
 
         <PrivateRoute
           path="/"
-          isLoggedIn={isLoggedIn}
           blogPostRoutes={blogPostRoutes}
         >
-          <MainBlock setIsLoggedIn={setIsLoggedIn} postsData={postsData} />
+          <MainBlock postsData={postsData} />
         </PrivateRoute>
       </Switch>
     </div>

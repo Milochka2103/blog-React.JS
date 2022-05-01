@@ -1,57 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./BlogPage.css";
 import { Post } from "./Post/Post";
 import { EditForm } from "./EditForm/EditForm";
-import { POSTS_URL } from "../../Utils/constants";
 import { PostsHeader } from "./PostsHeader/PostsHeader";
+import { useDispatch, useSelector } from 'react-redux';
+import { deletePost, fetchPosts, likePost, selectPostsData, setPosts } from '../../store/slices/posts';
 
 export const BlogPage = ({
   title,
-  blogPosts,
-  isLoading,
-  setBlogPosts,
-  error,
   isLikedPosts = false,
 }) => {
-  const likedPosts = blogPosts.filter((post) => post.liked);
+  /* const likedPosts = posts.filter((post) => post.liked); */
 
-  const likePost = (pos) => {
-    const updatedPosts = [...blogPosts];
+  const { list: posts, isLoading, error } = useSelector(selectPostsData);
+  const dispatch = useDispatch();
 
-    updatedPosts[pos].liked = !updatedPosts[pos].liked;
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch])
 
-    fetch(POSTS_URL + updatedPosts[pos].id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedPosts[pos]),
-    })
-      .then((res) => res.json())
-      .then((updatedPostFromServer) => {
-        updatedPosts[pos] = updatedPostFromServer;
-        setBlogPosts(updatedPosts);
-      })
-      .catch((error) => console.log(error));
+  const handleLikePost = (index) => {
+    dispatch(likePost(posts, index));
   };
 
-  const deletePost = (postId) => {
-    const isDelete = window.confirm("Удалить пост?");
-
-    if (isDelete) {
-      fetch(POSTS_URL + postId, { method: "DELETE" })
-        .then(() =>
-          setBlogPosts(blogPosts.filter((post) => post.id !== postId))
-        )
-        .catch((error) => console.log(error));
-    }
+  const handleDeletePost = (postId) => {
+    dispatch(deletePost(postId))
   };
   const [selectedPost, setSelectedPost] = useState({});
   const [showEditForm, setShowEditForm] = useState(false);
+
   const selectPost = (post) => {
     setSelectedPost(post);
     setShowEditForm(true);
   };
+
   if (isLoading) return <h1>Getting a data...</h1>;
   if (error) return <h1>{error.message}</h1>;
 
@@ -60,18 +42,18 @@ export const BlogPage = ({
       <PostsHeader
         title={title}
         isLikedPosts={isLikedPosts}
-        setBlogPosts={setBlogPosts}
-        blogPosts={blogPosts}
+        setBlogPosts={setPosts}
+        posts={posts}
       />
 
       <section className="posts">
-        {(isLikedPosts ? likedPosts : blogPosts).map((post, pos) => {
+        {posts.map((post, pos) => {
           return (
             <Post
               {...post}
-              likePost={() => likePost(pos)}
-              deletePost={() => deletePost(post.id)}
-              selectPost={() => selectPost(post)}
+              likePost={() => handleLikePost(pos)}
+              deletePost={() => handleDeletePost(post.id)}
+              setBlogPosts={() => selectPost(post)}
               key={post.id}
             />
           );
@@ -82,8 +64,8 @@ export const BlogPage = ({
         <EditForm
           selectedPost={selectedPost}
           setShowEditForm={setShowEditForm}
-          setBlogPosts={setBlogPosts}
-          blogPosts={blogPosts}
+          setposts={setPosts}
+          posts={posts}
         />
       )}
     </div>

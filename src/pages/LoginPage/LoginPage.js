@@ -1,19 +1,20 @@
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { logIn } from "../../store/slices/auth";
 import "./LoginPage.css";
 
-export const LoginPage = ({ setIsLoggedIn }) => {
+export const LoginPage = () => {
   const loginRef = useRef();
   const passwordRef = useRef();
 
   const history = useHistory();
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    localStorage.setItem("isLoggedIn", true);
-
-    setIsLoggedIn(true);
+    dispatch(logIn())
     history.push("/");
   };
 
