@@ -4,12 +4,9 @@ import { Post } from "./Post/Post";
 import { EditForm } from "./EditForm/EditForm";
 import { PostsHeader } from "./PostsHeader/PostsHeader";
 import { useDispatch, useSelector } from 'react-redux';
-import { deletePost, fetchPosts, likePost, selectPostsData, setPosts } from '../../store/slices/posts';
+import { deletePost, editPost, fetchPosts, selectPostsData } from '../../store/slices/posts';
 
-export const BlogPage = ({
-  title,
-  isLikedPosts = false,
-}) => {
+export const BlogPage = () => {
   /* const likedPosts = posts.filter((post) => post.liked); */
 
   const { list: posts, isLoading, error } = useSelector(selectPostsData);
@@ -20,12 +17,15 @@ export const BlogPage = ({
   }, [dispatch])
 
   const handleLikePost = (index) => {
-    dispatch(likePost(posts, index));
+    const updatedPosts = [...posts];
+    updatedPosts[index] = { ...updatedPosts[index], liked: !updatedPosts[index].liked};
+    dispatch(editPost(updatedPosts[index]));
   };
 
   const handleDeletePost = (postId) => {
     dispatch(deletePost(postId))
   };
+
   const [selectedPost, setSelectedPost] = useState({});
   const [showEditForm, setShowEditForm] = useState(false);
 
@@ -36,14 +36,14 @@ export const BlogPage = ({
 
   if (isLoading) return <h1>Getting a data...</h1>;
   if (error) return <h1>{error.message}</h1>;
+  
 
   return (
     <div className="postsWrapper">
       <PostsHeader
-        title={title}
-        isLikedPosts={isLikedPosts}
-        setBlogPosts={setPosts}
-        posts={posts}
+        title={'Posts'}
+        isLikedPosts={false}
+        blogPosts={posts}
       />
 
       <section className="posts">
@@ -53,7 +53,7 @@ export const BlogPage = ({
               {...post}
               likePost={() => handleLikePost(pos)}
               deletePost={() => handleDeletePost(post.id)}
-              setBlogPosts={() => selectPost(post)}
+              selectPost={() => selectPost(post)}
               key={post.id}
             />
           );
@@ -64,8 +64,6 @@ export const BlogPage = ({
         <EditForm
           selectedPost={selectedPost}
           setShowEditForm={setShowEditForm}
-          setposts={setPosts}
-          posts={posts}
         />
       )}
     </div>

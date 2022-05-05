@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./EditForm.css";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { POSTS_URL } from "../../../Utils/constants";
+import { editPost } from "../../../store/slices/posts";
+import { useDispatch } from "react-redux";
 
 export const EditForm = ({
   setShowEditForm,
@@ -20,7 +21,9 @@ export const EditForm = ({
     setPostDesc(e.target.value);
   };
 
-  const editPost = (e) => {
+  const dispatch = useDispatch();
+
+  const handleEditPost = (e) => {
     e.preventDefault();
 
     const updatedPost = {
@@ -29,33 +32,13 @@ export const EditForm = ({
       description: postDesc,
     };
 
-    fetch(POSTS_URL + blogPost.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedPost),
-    })
-      .then((res) => res.json())
-      .then(updatedPostFromServer => {
-        setBlogPost(updatedPostFromServer);
-        setBlogPosts((blogPosts) => {
-          return blogPosts.map(post => {
-            if (post.id === updatedPostFromServer.id) {
-              return updatedPostFromServer
-            }
-
-            return post
-          })
-        })
-        setShowEditForm(false);
-      })
-      .catch((error) => console.log(error));
+    dispatch(editPost(updatedPost))
+      .finally(() => setShowEditForm(false))
   };
 
   return (
     <>
-      <form className="editPostForm" onSubmit={editPost}>
+      <form className="editPostForm" onSubmit={handleEditPost}>
         <button className="hideBtn" onClick={() => setShowEditForm(false)}>
           <CancelIcon />
         </button>

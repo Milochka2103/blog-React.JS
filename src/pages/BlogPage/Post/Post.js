@@ -21,14 +21,16 @@ export const Post = ({
 
   const finalDescription = (
     <p>
-      {description.length > 70 ? (
+      {description.length > 100 ? (
         <>
           {description.slice(0, 101)}...
-          <Link to={`/blog/${id}`}>Read more</Link>
+          
         </>
       ) : (
         description
       )}
+      &nbsp;
+      <Link to={`/blog/${id}`}>Read more</Link>
     </p>
   )
 

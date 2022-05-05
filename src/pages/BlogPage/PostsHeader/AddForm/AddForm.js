@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./AddForm.css";
 import CancelIcon from '@mui/icons-material/Cancel';
-import { POSTS_URL } from "../../../../Utils/constants";
+import { createNewPost } from "../../../../store/slices/posts";
+import { useDispatch } from "react-redux";
 
-export const AddForm = ({setShowAddForm, blogPosts, setBlogPosts}) => {
+export const AddForm = ({setShowAddForm, blogPosts }) => {
 
   const [postTitle, setPostTitle] = useState('');
   const [postDesc, setPostDesc] = useState('');
@@ -16,7 +17,9 @@ export const AddForm = ({setShowAddForm, blogPosts, setBlogPosts}) => {
     setPostDesc(e.target.value)
   }
 
-  const createPost = (e) => {
+  const dispatch = useDispatch();
+
+  const handleCreatePost = (e) => {
     e.preventDefault();
 
     const newPost = {
@@ -26,26 +29,15 @@ export const AddForm = ({setShowAddForm, blogPosts, setBlogPosts}) => {
       image: blogPosts[0].image
     }
 
-    fetch(POSTS_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newPost)
-    })
-    .then(res => res.json())
-    .then(newPostFromServer => {
-      setBlogPosts([...blogPosts, newPostFromServer]);
-      setShowAddForm(false);
-    })
-    .catch(error => console.log(error))
+    dispatch(createNewPost(newPost))
+    .finally(() => setShowAddForm(false));
   }
 
 
   return (
     <>
-    <form className="addPostForm" onSubmit={createPost}>
-      <button className="hideBtn" /* onClick={handleAddFormHide} */>
+    <form className="addPostForm" onSubmit={handleCreatePost}>
+      <button className="hideBtn" onClick={ () => setShowAddForm(false)} >
         <CancelIcon />
       </button>
       <h2>Create a post</h2>

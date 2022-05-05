@@ -19,7 +19,6 @@ export const PostsHeader = ({ title, blogPosts, setBlogPosts, isLikedPosts }) =>
 
       {showAddForm && (
         <AddForm
-          setBlogPosts={setBlogPosts}
           blogPosts={blogPosts}
           setShowAddForm={setShowAddForm}
         />

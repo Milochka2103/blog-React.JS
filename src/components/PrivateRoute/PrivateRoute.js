@@ -6,11 +6,12 @@ import { NoMatch } from "../../pages/NoMatch/NoMatch";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../store/slices/auth";
 
+
 export const PrivateRoute = ({
   path,
   exact = false,
   children: Component,
-  blogPostRoutes,
+  blogPostRoutes
 }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 

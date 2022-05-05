@@ -25,27 +25,38 @@ export const deletePost = createAsyncThunk('posts/deletePost', async (postId) =>
   }
 });
 
-export const likePost = createAsyncThunk('posts/likePost', async (posts, index) => {
-
-  const updatedPosts = { ...posts };
-
-  updatedPosts[index].liked = !updatedPosts[index].liked;
-
-  const response = await fetch(POSTS_URL + updatedPosts[index].id, {
+export const editPost = createAsyncThunk('posts/likePost', async (updatedPost) => {
+  
+  const response = await fetch(POSTS_URL + updatedPost.id, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(updatedPosts[index])
+    body: JSON.stringify(updatedPost)
     })
 
   if (response.ok) {
     return await response.json();
   } else {
-    return new Error('Error during delete post');
+    return new Error('Error during edit post');
   }
 });
 
+export const createNewPost = createAsyncThunk('posts/createNewPost', async(newPost) => {
+  const response = await fetch(POSTS_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newPost)
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    return new Error('Error during crate a post');
+  }
+})
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -75,7 +86,8 @@ const postsSlice = createSlice({
     {
       state.error = action.payload;
     });
-    builder.addCase(likePost.fulfilled, (state, action) => {
+    
+    builder.addCase(editPost.fulfilled, (state, action) => {
       state.list = state.list.map((post) => {
         if (post.id === action.payload.id) {
           return action.payload;
@@ -84,7 +96,14 @@ const postsSlice = createSlice({
         return post;
       });
     });
-    builder.addCase(likePost.rejected, (state, action) =>
+    builder.addCase(editPost.rejected, (state, action) =>
+    {
+      state.error = action.payload;
+    });
+    builder.addCase(createNewPost.fulfilled, (state, action) => {
+      state.list = [...state.list, action.payload]
+    });
+    builder.addCase(createNewPost.rejected, (state, action) =>
     {
       state.error = action.payload;
     });
