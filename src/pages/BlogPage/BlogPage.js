@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./BlogPage.css";
+import { Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Post } from "./Post/Post";
 
 import { PostsHeader } from "./PostsHeader/PostsHeader";
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, editPost, fetchPosts, selectPostsData } from '../../store/slices/posts';
 import { EditForm } from "../../components/EditForm";
+
+
+const { confirm } = Modal;
 
 export const BlogPage = () => {
   /* const likedPosts = posts.filter((post) => post.liked); */
@@ -17,6 +22,7 @@ export const BlogPage = () => {
     dispatch(fetchPosts());
   }, [dispatch])
 
+
   const handleLikePost = (index) => {
     const updatedPosts = [...posts];
     updatedPosts[index] = { ...updatedPosts[index], liked: !updatedPosts[index].liked};
@@ -24,7 +30,18 @@ export const BlogPage = () => {
   };
 
   const handleDeletePost = (postId) => {
-    dispatch(deletePost(postId))
+      confirm({
+        title: 'Are you sure delete this post?',
+        icon: <ExclamationCircleOutlined />,
+        content: 'This is irreversible process',
+        okText: 'Yes',
+        okType: 'danger',
+        cancelText: 'Cancel',
+        onOk() {
+          dispatch(deletePost(postId))
+        },
+
+      });
   };
 
   const [selectedPost, setSelectedPost] = useState({});

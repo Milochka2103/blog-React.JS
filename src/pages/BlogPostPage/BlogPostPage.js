@@ -6,7 +6,8 @@ import { useHistory, useParams } from "react-router-dom";
 import { useGetSinglePost } from "../../Utils/hooks";
 import { POSTS_URL } from "../../Utils/constants";
 import { useState } from "react";
-
+import { Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useDispatch } from "react-redux";
 import { deletePost, editPost } from "../../store/slices/posts";
 import { EditForm } from "../../components/EditForm";
@@ -17,6 +18,8 @@ export const BlogPostPage = ({ setBlogPosts }) => {
   const history = useHistory();
 
   const dispatch = useDispatch();
+  
+  const { confirm } = Modal;
 
   const { blogPost, setBlogPost, isLoading, error } = useGetSinglePost(
     POSTS_URL,
@@ -38,13 +41,19 @@ export const BlogPostPage = ({ setBlogPosts }) => {
   };
 
   const handleDeletePost = () => {
-    const isDelete = window.confirm("Удалить пост?");
-
-    if (isDelete) {
-      dispatch(deletePost(postId)).then(() => {
-        history.goBack();
-      });
-    }
+    confirm({
+      title: 'Are you sure delete this post?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'This is irreversible process',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'Cancel',
+      onOk() {
+        dispatch(deletePost(postId)).then(() => {
+          history.goBack();
+        });
+      }
+    });
   };
 
   const handleEditFormShow = () => {
