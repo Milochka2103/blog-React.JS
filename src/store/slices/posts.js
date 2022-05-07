@@ -27,6 +27,8 @@ export const deletePost = createAsyncThunk('posts/deletePost', async (postId) =>
 
 export const editPost = createAsyncThunk('posts/likePost', async (updatedPost) => {
   
+  console.log(updatedPost);
+
   const response = await fetch(POSTS_URL + updatedPost.id, {
     method: 'PUT',
     headers: {
@@ -88,7 +90,7 @@ const postsSlice = createSlice({
     });
     
     builder.addCase(editPost.fulfilled, (state, action) => {
-      state.list = state.list.map((post) => {
+      state.list = [...state.list].map((post) => {
         if (post.id === action.payload.id) {
           return action.payload;
         }

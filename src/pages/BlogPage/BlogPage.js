@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./BlogPage.css";
 import { Post } from "./Post/Post";
-import { EditForm } from "./EditForm/EditForm";
+
 import { PostsHeader } from "./PostsHeader/PostsHeader";
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, editPost, fetchPosts, selectPostsData } from '../../store/slices/posts';
+import { EditForm } from "../../components/EditForm";
 
 export const BlogPage = () => {
   /* const likedPosts = posts.filter((post) => post.liked); */

@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import "./EditForm.css";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { editPost } from "../../../store/slices/posts";
 import { useDispatch } from "react-redux";
+import { editPost } from "../store/slices/posts";
 
-export const EditForm = ({
-  setShowEditForm,
-  setBlogPost,
-  blogPost,
-  setBlogPosts
-}) => {
-  const [postTitle, setPostTitle] = useState(blogPost?.title);
-  const [postDesc, setPostDesc] = useState(blogPost?.description);
+export const EditForm = ({ setShowEditForm, selectedPost }) => {
+  const [postTitle, setPostTitle] = useState(selectedPost?.title);
+  const [postDesc, setPostDesc] = useState(selectedPost?.description);
 
   const handlePostTitleChange = (e) => {
     setPostTitle(e.target.value);
@@ -27,13 +22,13 @@ export const EditForm = ({
     e.preventDefault();
 
     const updatedPost = {
-      ...blogPost,
+      ...selectedPost,
       title: postTitle,
       description: postDesc,
     };
 
     dispatch(editPost(updatedPost))
-      .finally(() => setShowEditForm(false))
+    .finally(() => setShowEditForm(false));
   };
 
   return (

@@ -6,9 +6,10 @@ import { useHistory, useParams } from "react-router-dom";
 import { useGetSinglePost } from "../../Utils/hooks";
 import { POSTS_URL } from "../../Utils/constants";
 import { useState } from "react";
-import { EditForm } from "./EditForm/EditForm";
+
 import { useDispatch } from "react-redux";
 import { deletePost, editPost } from "../../store/slices/posts";
+import { EditForm } from "../../components/EditForm";
 
 export const BlogPostPage = ({ setBlogPosts }) => {
   const { postId } = useParams();
@@ -72,9 +73,7 @@ export const BlogPostPage = ({ setBlogPosts }) => {
       {showEditForm && (
         <EditForm
           setShowEditForm={setShowEditForm}
-          setBlogPost={setBlogPost}
-          blogPost={blogPost}
-          setBlogPosts={setBlogPosts}
+          selectedPost={blogPost}
         />
       )}
     </div>
