@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { deletePost, editPost } from "../../store/slices/posts";
 import { EditForm } from "../../components/EditForm";
 
-export const BlogPostPage = ({ setBlogPosts }) => {
+export const BlogPostPage = () => {
   const { postId } = useParams();
 
   const history = useHistory();

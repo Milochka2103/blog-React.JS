@@ -4,15 +4,17 @@ import { MainBlock } from "./components/MainBlock/MainBlock";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { POSTS_URL } from "./Utils/constants";
-import { useFetchPosts} from "./Utils/hooks";
+import { POSTS_URL, USERS_URL } from "./Utils/constants";
+import { useFetchPosts, useFetchUsers} from "./Utils/hooks";
 
 function App() {
   const postsData = useFetchPosts(POSTS_URL);
+  const usersData = useFetchUsers(USERS_URL);
 
   const blogPostRoutes = postsData.blogPosts.map((post) => {
     return `/blog/${post.id}`;
   });
+
 
   return (
     <div className="App">
@@ -29,7 +31,7 @@ function App() {
           path="/"
           blogPostRoutes={blogPostRoutes}
         >
-          <MainBlock postsData={postsData} />
+          <MainBlock postsData={postsData} usersData={usersData} />
         </PrivateRoute>
       </Switch>
     </div>

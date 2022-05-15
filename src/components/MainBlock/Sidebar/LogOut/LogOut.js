@@ -3,6 +3,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import './LogOut.css';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { logOut } from "../../../../store/slices/auth";
 
 export const LogOut = () => {
 
@@ -11,14 +12,14 @@ export const LogOut = () => {
   const dispatch = useDispatch();
 
 
-  const logOut = () => {
+  const handleLogOut = () => {
     dispatch(logOut());
     history.push('/login');
   };
 
   return (
     <section className="sidebarBottom">
-      <button onClick={logOut}>
+      <button onClick={handleLogOut}>
         <LogoutIcon />
         <span>
           Exit

@@ -9,6 +9,7 @@ const initialState = {
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   const response = await fetch(POSTS_URL);
+
   if (response.ok) {
     return await response.json();
   } else {

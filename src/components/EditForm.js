@@ -44,7 +44,7 @@ export const EditForm = ({ setShowEditForm, selectedPost }) => {
             className="editFormInput"
             type="text"
             name="postTitle"
-            placeholder="Заголовок поста"
+            placeholder="Title"
             value={postTitle}
             onChange={handlePostTitleChange}
             required
@@ -54,7 +54,7 @@ export const EditForm = ({ setShowEditForm, selectedPost }) => {
           <textarea
             className="editFormInput"
             name="postDescription"
-            placeholder="Описание поста"
+            placeholder="Description"
             value={postDesc}
             onChange={handlePostDescChange}
             rows={8}

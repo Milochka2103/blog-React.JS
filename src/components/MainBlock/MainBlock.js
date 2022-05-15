@@ -3,8 +3,9 @@ import './MainBlock.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { BlogPage } from '../../pages/BlogPage/BlogPage';
 import { BlogPostPage } from '../../pages/BlogPostPage/BlogPostPage';
+import { AccountPage } from '../../pages/AccountPage/AccountPage';
 
-export const MainBlock = ({ postsData }) => {
+export const MainBlock = ({ postsData, usersData }) => {
 
   return (
     <>
@@ -15,9 +16,13 @@ export const MainBlock = ({ postsData }) => {
             <BlogPage title='Posts' {...postsData} />
           </Route>
 
-         {/*  <Route exact path='/favourite'>
+          <Route exact path='/favourite'>
             <BlogPage title='Favourite posts' {...postsData} isLikedPosts />
-          </Route> */}
+          </Route>
+
+          <Route exact path='/account'>
+            <AccountPage title='My account' {...usersData} />
+          </Route>
 
           <Route path='/blog/:postId'>
             <BlogPostPage setBlogPosts={postsData.setBlogPosts} />

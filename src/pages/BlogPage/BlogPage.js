@@ -12,9 +12,7 @@ import { EditForm } from "../../components/EditForm";
 
 const { confirm } = Modal;
 
-export const BlogPage = () => {
-  /* const likedPosts = posts.filter((post) => post.liked); */
-
+export const BlogPage = ({isLikedPosts = false, title}) => {
   const { list: posts, isLoading, error } = useSelector(selectPostsData);
   const dispatch = useDispatch();
 
@@ -22,6 +20,7 @@ export const BlogPage = () => {
     dispatch(fetchPosts());
   }, [dispatch])
 
+  const likedPosts = posts.filter((post) => post.liked);
 
   const handleLikePost = (index) => {
     const updatedPosts = [...posts];
@@ -59,13 +58,15 @@ export const BlogPage = () => {
   return (
     <div className="postsWrapper">
       <PostsHeader
-        title={'Posts'}
-        isLikedPosts={false}
+        title={title}
+        isLikedPosts={isLikedPosts}
         blogPosts={posts}
       />
 
       <section className="posts">
-        {posts.map((post, pos) => {
+        {
+          ( isLikedPosts ? likedPosts : 
+        posts).map((post, pos) => {
           return (
             <Post
               {...post}

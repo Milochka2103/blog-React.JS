@@ -3,7 +3,7 @@ import "./Navigation.css";
 
 import LaptopChromebookIcon from "@mui/icons-material/LaptopChromebook";
 import LocalActivityIcon from "@mui/icons-material/LocalActivity";
-import SettingsIcon from "@mui/icons-material/Settings";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { NavLink } from "react-router-dom";
 
 export const Navigation = () => {
@@ -16,12 +16,12 @@ export const Navigation = () => {
       
       <NavLink exact to="/favourite" activeClassName="active">
         <LocalActivityIcon />
-        <span>Favorite</span>
+        <span>Favourite</span>
       </NavLink>
       
-      <NavLink exact to="/settings" activeClassName="active">
-        <SettingsIcon />
-        <span>Settings</span>
+      <NavLink exact to="/account" activeClassName="active">
+        <AccountCircleIcon />
+        <span>Account</span>
       </NavLink>
     </nav>
   );
