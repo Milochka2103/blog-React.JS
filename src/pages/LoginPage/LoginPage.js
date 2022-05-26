@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { logIn } from "../../store/slices/auth";
 import "./LoginPage.css";
 
@@ -21,11 +21,12 @@ export const LoginPage = () => {
   return (
     <form onSubmit={handleSubmit} className="LoginForm">
       <h1>Authorization</h1>
+      <p>Or <Link to='/registration'>Registration</Link></p>
       <div>
         <input
           ref={loginRef}
           type="text"
-          placeholder="Enter your login"
+          placeholder="Enter your email"
           name="login"
           required
         />

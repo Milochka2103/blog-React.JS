@@ -4,8 +4,8 @@ import "./AccountPage.css";
 import { MailOutlined, SettingOutlined } from "@ant-design/icons";
 import EditIcon from "@mui/icons-material/Edit";
 import {
-  editUser,
-  accountUsers,
+  //editUser,
+  fetchUsers,
   selectUsersData,
 } from "../../store/slices/users";
 import { EditForm } from "./EditForm/EditForm";
@@ -21,7 +21,7 @@ export const AccountPage = ({ title }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(accountUsers());
+    dispatch(fetchUsers());
   }, [dispatch]);
 
   const { userId } = useParams();

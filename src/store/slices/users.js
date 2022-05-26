@@ -7,7 +7,7 @@ const initialState = {
   error: null,
 }
 
-export const accountUsers = createAsyncThunk('users/accountUsers', async () => {
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   const response = await fetch(USERS_URL);
 
   if (response.ok) {
@@ -16,6 +16,22 @@ export const accountUsers = createAsyncThunk('users/accountUsers', async () => {
     return new Error('Error during get account data');
   }
 });
+
+export const createNewUser = createAsyncThunk('posts/createNewUser', async(newUser) => {
+  const response = await fetch(USERS_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newUser)
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    return new Error('Error during crate a post');
+  }
+})
 
 
 export const editUser = createAsyncThunk('users/editUser', async (updatedUser) => {
@@ -38,22 +54,22 @@ export const editUser = createAsyncThunk('users/editUser', async (updatedUser) =
 });
 
 const usersSlice = createSlice({
-  name: 'users',
+  name: 'user',
   initialState,
   reducers: {
     setUsers: (state, action) => {
-      state.posts = action.payload
+      state.users = action.payload
     }
   },
   extraReducers: ( builder) => {
-    builder.addCase(accountUsers.pending, (state, action) => {
+    builder.addCase(fetchUsers.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(accountUsers.fulfilled, (state, action) => {
+    builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.list = action.payload;
       state.isLoading = false;
     });
-    builder.addCase(accountUsers.rejected, (state, action) =>
+    builder.addCase(fetchUsers.rejected, (state, action) =>
     {
       state.error = action.payload;
       state.isLoading = false;
@@ -72,6 +88,13 @@ const usersSlice = createSlice({
     {
       state.error = action.payload;
     });
+    builder.addCase(createNewUser.fulfilled, (state, action) => {
+      state.list = [...state.list, action.payload]
+    });
+    builder.addCase(createNewUser.rejected, (state, action) =>
+    {
+      state.error = action.payload;
+    });
   }
 });
 
@@ -79,4 +102,4 @@ export const usersReducer = usersSlice.reducer;
 
 export const { setUsers } = usersSlice.actions;
 
-export const selectUsersData = (state => state.users);
+export const selectUsersData = (state => state.user);

@@ -42,6 +42,7 @@ export const APP_ROUTES = [
   '/favourite',
   '/account',
   '/login',
+  '/registration',
 ]
 
 export const USERS_URL ='https://625bd1c050128c570207cce6.mockapi.io/users/';

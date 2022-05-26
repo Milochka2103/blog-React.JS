@@ -4,6 +4,7 @@ import { MainBlock } from "./components/MainBlock/MainBlock";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
+import { Registration } from "./pages/Registration/Registration";
 import { POSTS_URL, USERS_URL } from "./Utils/constants";
 import { useFetchPosts, useFetchUsers} from "./Utils/hooks";
 
@@ -26,6 +27,15 @@ function App() {
         >
           <LoginPage />;
         </PublicRoute>
+
+        <PublicRoute
+          exact
+          path="/registration"
+          blogPostRoutes={blogPostRoutes}
+        >
+          <Registration />;
+        </PublicRoute>
+
 
         <PrivateRoute
           path="/"
