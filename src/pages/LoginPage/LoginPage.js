@@ -1,10 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef} from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logIn } from "../../store/slices/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from 'react';
-import { message } from 'antd';
+
 import "./LoginPage.css";
 
 export const LoginPage = () => {
