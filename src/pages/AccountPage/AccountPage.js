@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React /* { useEffect, useState } */ from "react";
 import { Menu } from "antd";
 import "./AccountPage.css";
 import { MailOutlined, SettingOutlined } from "@ant-design/icons";
 import EditIcon from "@mui/icons-material/Edit";
-import {
-  //editUser,
-  fetchUsers,
-  selectUsersData,
-} from "../../store/slices/users";
-import { EditForm } from "./EditForm/EditForm";
-import { useDispatch, useSelector } from "react-redux";
-import { useGetSingleUser } from "../../Utils/hooks";
-import { useParams } from "react-router-dom";
-import { USERS_URL } from "../../Utils/constants";
 import { PostsHeader } from "../BlogPage/PostsHeader/PostsHeader";
 
 export const AccountPage = ({ title }) => {
-  const { list: users } = useSelector(selectUsersData);
+  /* const { list: users } = useSelector(selectUsersData);
 
   const dispatch = useDispatch();
 
@@ -43,10 +33,10 @@ export const AccountPage = ({ title }) => {
   if (isLoading) return <h1>Getting a data...</h1>;
   if (error) return <h1>{error.message}</h1>;
 
-
+ */
   return (
     <div className="userssWrapper">
-      <PostsHeader title={title} accountUser={users} />
+      <PostsHeader title={title} />
 
       <div className="account">
         <h1>{title}</h1>
@@ -65,34 +55,24 @@ export const AccountPage = ({ title }) => {
         <div className="account-data">
           <div className="my-data">
             <span className="span-account">My phone number:</span>
-            <b>{phone}</b>
-            <button onClick={handleEditFormShow} className="editBtn">
+            <button className="editBtn">
               <EditIcon />
             </button>
           </div>
           <div className="my-data">
             <span className="span-account">My e-mail:</span>
-            <b>{email}</b>
-            <button onClick={handleEditFormShow} className="editBtn">
+            <button className="editBtn">
               <EditIcon />
             </button>
           </div>
           <div className="my-data">
             <span className="span-account">My adress:</span>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <b>{fullname}</b>
-            <button onClick={handleEditFormShow} className="editBtn">
+            <button className="editBtn">
               <EditIcon />
             </button>
           </div>
         </div>
-
-        {showEditForm && (
-          <EditForm
-            selectedUser={accountUser}
-            setShowEditForm={setShowEditForm}
-          />
-        )}
       </div>
     </div>
   );

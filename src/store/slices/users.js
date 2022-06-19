@@ -29,10 +29,34 @@ export const createNewUser = createAsyncThunk('posts/createNewUser', async(newUs
   if (response.ok) {
     return await response.json();
   } else {
-    return new Error('Error during crate a post');
+    return new Error('Error during create a user');
   }
 })
 
+/* export const getUser = createAsyncThunk('posts/createNewUser', async(getUser) => {
+  const response = await fetch(`USERS_URL + '?email=${userEmail}'`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(getUser)
+  });
+
+  const responsePassword = await fetch(`USERS_URL + '?password=${password}'`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(getUser)
+  });
+
+  if (response.ok & responsePassword.ok) {
+    return await response.json();
+  } else {
+    return new Error('Email or password is incorrect. Check, please, and try againt');
+  }
+})
+ */
 
 export const editUser = createAsyncThunk('users/editUser', async (updatedUser) => {
   

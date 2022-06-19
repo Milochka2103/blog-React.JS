@@ -11,6 +11,12 @@ export const Registration = () => {
   const [userFullName, setUserFullName] = useState('');
   const [userAdress, setUserAdress] = useState('');
   const [userPassword, setUserPassword] = useState('');
+
+  var bcrypt = require('bcryptjs');
+
+  const salt = bcrypt.genSaltSync(10);
+
+  const passwordToSave = bcrypt.hashSync(userPassword, salt)
   
   const history = useHistory();
 
@@ -44,7 +50,7 @@ export const Registration = () => {
       phone: userPhone,
       fullname: userFullName,
       adress: userAdress,
-      password: userPassword
+      password: passwordToSave
     }
 
     dispatch(createNewUser(newUser));

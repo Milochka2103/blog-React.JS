@@ -25,7 +25,7 @@ function App() {
           path="/login"
           blogPostRoutes={blogPostRoutes}
         >
-          <LoginPage />;
+          <LoginPage usersData={usersData} />;
         </PublicRoute>
 
         <PublicRoute
