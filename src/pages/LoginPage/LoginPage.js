@@ -1,6 +1,6 @@
 import { useRef} from "react";
 import { useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { logIn } from "../../store/slices/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from 'react';
@@ -78,7 +78,7 @@ export const LoginPage = () => {
       <div>
         <button type="submit">Sign in</button>
       </div>
-      <p>Don't have an account? <Link to='/registration'>Registration</Link></p>
+      <p>Don't have an account? {/* <Link to='/registration'>Registration</Link> */}</p>
     </form>
   );
 };

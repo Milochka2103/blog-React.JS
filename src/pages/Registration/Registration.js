@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/* import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from "react-router-dom";
 import { createNewUser } from "../../store/slices/users";
@@ -116,4 +116,4 @@ export const Registration = () => {
       <p>Do you have account? <Link to='/login'>Login</Link></p>
     </form>
   );
-}
+} */

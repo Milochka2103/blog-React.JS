@@ -3,7 +3,6 @@ import { Menu } from "antd";
 import "./AccountPage.css";
 import { MailOutlined, SettingOutlined } from "@ant-design/icons";
 import EditIcon from "@mui/icons-material/Edit";
-import { PostsHeader } from "../BlogPage/PostsHeader/PostsHeader";
 
 export const AccountPage = ({ title }) => {
   /* const { list: users } = useSelector(selectUsersData);
@@ -36,7 +35,6 @@ export const AccountPage = ({ title }) => {
  */
   return (
     <div className="userssWrapper">
-      <PostsHeader title={title} />
 
       <div className="account">
         <h1>{title}</h1>
